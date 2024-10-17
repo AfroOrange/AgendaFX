@@ -8,31 +8,40 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar>
+            <MenuBar style="-fx-background-color: #96fde9;">
               <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu mnemonicParsing="false" text="Archivo">
                   <items>
-                        <MenuItem mnemonicParsing="false" text="Nuevo" />
-                    <MenuItem mnemonicParsing="false" text="Abrir..." />
-                        <MenuItem mnemonicParsing="false" text="Guardar" />
+                    <MenuItem mnemonicParsing="false" onAction="#onOpenAction" text="Abrir...">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onSaveAction" text="Guardar">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Nuevo">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
+                <Menu mnemonicParsing="false" text="Editar">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Suprimir" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu mnemonicParsing="false" text="Socorro">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Acerca de..." />
                   </items>
@@ -45,16 +54,16 @@
             <HBox fillHeight="false" prefHeight="10.0" spacing="5.0" VBox.vgrow="NEVER">
                <children>
                   <Button mnemonicParsing="false" onAction="#onNewAction" text="Nuevo" />
-                  <Button mnemonicParsing="false" text="Abrir" />
-                  <Button mnemonicParsing="false" text="Guardar" />
-                  <Button mnemonicParsing="false" text="Cerrar" />
-                  <Button mnemonicParsing="false" text="Cerrar Todos" />
+                  <Button mnemonicParsing="false" onAction="#onOpenAction" text="Abrir" />
+                  <Button mnemonicParsing="false" onAction="#onSaveAction" text="Guardar" />
+                  <Button mnemonicParsing="false" onAction="#onCloseAction" text="Cerrar" />
+                  <Button mnemonicParsing="false" onAction="#onCloseAllAction" text="Cerrar Todos" />
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <Button mnemonicParsing="false" text="Copiar" />
-                  <Button mnemonicParsing="false" text="Cortar" />
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Deshacer" />
-                  <Button mnemonicParsing="false" text="Rehacer" />
+                  <Button mnemonicParsing="false" onAction="#onCopyAction" text="Copiar" />
+                  <Button mnemonicParsing="false" onAction="#onCutAction" text="Cortar" />
+                  <Button mnemonicParsing="false" onAction="#onPasteAction" text="Pegar" />
+                  <Button mnemonicParsing="false" onAction="#onUndoAction" text="Deshacer" />
+                  <Button mnemonicParsing="false" onAction="#onRedoAction" text="Rehacer" />
                </children>
             </HBox>
          </children>
@@ -64,7 +73,7 @@
       </VBox>
    </top>
    <center>
-      <TabPane fx:id="editTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="editTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Untitled Tab 1">
             <content>
