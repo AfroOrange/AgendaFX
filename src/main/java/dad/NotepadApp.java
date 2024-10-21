@@ -18,6 +18,6 @@ public class NotepadApp extends Application {
         notepadStage.setTitle("Notepad Bichado");
         notepadStage.setScene(notepadScene);
         notepadStage.show();
-        
+
     }
 }

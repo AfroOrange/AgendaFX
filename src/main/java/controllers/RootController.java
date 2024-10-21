@@ -43,11 +43,13 @@ public class RootController implements Initializable {
 
     @FXML
     void onCloseAction(ActionEvent event) {
-
+        editTabPane.getTabs().remove(selectedTab.get());
     }
 
     @FXML
     void onCloseAllAction(ActionEvent event) {
+
+        editTabPane.getTabs().clear();
 
     }
 
