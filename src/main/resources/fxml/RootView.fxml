@@ -8,17 +8,19 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar style="-fx-background-color: #96fde9;">
+            <MenuBar>
               <menus>
                 <Menu mnemonicParsing="false" text="Archivo">
                   <items>
@@ -53,17 +55,78 @@
             </MenuBar>
             <HBox fillHeight="false" prefHeight="10.0" spacing="5.0" VBox.vgrow="NEVER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onNewAction" text="Nuevo" />
-                  <Button mnemonicParsing="false" onAction="#onOpenAction" text="Abrir" />
-                  <Button mnemonicParsing="false" onAction="#onSaveAction" text="Guardar" />
-                  <Button mnemonicParsing="false" onAction="#onCloseAction" text="Cerrar" />
-                  <Button mnemonicParsing="false" onAction="#onCloseAllAction" text="Cerrar Todos" />
+                  <Button mnemonicParsing="false" onAction="#onNewAction">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-file" iconSize="20" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Nuevo archivo" />
+                     </tooltip></Button>
+                  <Button mnemonicParsing="false" onAction="#onOpenAction">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-folder-open" iconSize="20" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Abrir archivo" />
+                     </tooltip></Button>
+                  <Button mnemonicParsing="false" onAction="#onSaveAction">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-save" iconSize="20" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Guardar archivo" />
+                     </tooltip></Button>
+                  <Button mnemonicParsing="false" onAction="#onCloseAction">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-window-close" iconSize="20" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Cerrar pestaña" />
+                     </tooltip></Button>
+                  <Button mnemonicParsing="false" onAction="#onCloseAllAction">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-sign-out-alt" iconSize="20" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Cerrar todas las pestañas" />
+                     </tooltip></Button>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <Button mnemonicParsing="false" onAction="#onCopyAction" text="Copiar" />
-                  <Button mnemonicParsing="false" onAction="#onCutAction" text="Cortar" />
-                  <Button mnemonicParsing="false" onAction="#onPasteAction" text="Pegar" />
-                  <Button mnemonicParsing="false" onAction="#onUndoAction" text="Deshacer" />
-                  <Button mnemonicParsing="false" onAction="#onRedoAction" text="Rehacer" />
+                  <Button mnemonicParsing="false" onAction="#onCopyAction">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-copy" iconSize="20" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Copiar selección" />
+                     </tooltip></Button>
+                  <Button mnemonicParsing="false" onAction="#onCutAction">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-cut" iconSize="20" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Cortar selección" />
+                     </tooltip></Button>
+                  <Button mnemonicParsing="false" onAction="#onPasteAction">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-paste" iconSize="20" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Pegar selección" />
+                     </tooltip></Button>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <Button mnemonicParsing="false" onAction="#onUndoAction">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-undo-alt" iconSize="20" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Deshacer acción" />
+                     </tooltip></Button>
+                  <Button mnemonicParsing="false" onAction="#onRedoAction">
+                     <graphic>
+                        <FontIcon iconLiteral="fas-redo-alt" iconSize="20" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Rehacer acción" />
+                     </tooltip></Button>
                </children>
             </HBox>
          </children>

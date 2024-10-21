@@ -1,10 +1,8 @@
 package controllers;
 
-import javafx.beans.property.MapProperty;
+import dad.AgendaTab;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,10 +22,6 @@ public class RootController implements Initializable {
     // model
 
     private ObjectProperty<Tab> selectedTab = new SimpleObjectProperty<>();
-
-    //logic
-    
-    private MapProperty<Tab, EditorController> controllers = new SimpleMapProperty<>(FXCollections.observableHashMap());
 
     // view
     
@@ -57,78 +51,83 @@ public class RootController implements Initializable {
 
     }
 
+    private EditorController getSelectedEditor() {
+        return ((AgendaTab) selectedTab.get()).getController();
+    }
+
     @FXML
     void onCopyAction(ActionEvent event) {
-        controllers.get(selectedTab.get()).copy();
-
+        getSelectedEditor().copy();
     }
 
     @FXML
     void onCutAction(ActionEvent event) {
-
-//        Tab selectedTab = editTabPane.getSelectionModel().getSelectedItem();
-//        EditorController controller = controllers.get(selectedTab);
-//        controller.cut();
-
-        controllers.get(selectedTab.get()).cut();
-
+        getSelectedEditor().cut();
     }
 
     @FXML
     void onNewAction(ActionEvent event) {
-
-        newFile();
-
+        newTab();
     }
 
-    private EditorController newFile() {
-        EditorController editorController = new EditorController();
-
-        Tab newTab = new Tab();
-        newTab.setContent(editorController.getRoot());
-        newTab.textProperty().bind(editorController.nameProperty());
-
+    private AgendaTab newTab() {
+        AgendaTab newTab = new AgendaTab();
         editTabPane.getTabs().add(newTab);
-        controllers.put(newTab, editorController);
         editTabPane.getSelectionModel().select(newTab);  // seleccionamos la pestaña que acabamos de añadir
-
-        return editorController;
+        return newTab;
     }
 
     @FXML
     void onOpenAction(ActionEvent event) {
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Todosl los archivos", "*.*"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Todos los archivos (*.*)", "*.*"));
         File file = fileChooser.showOpenDialog(getRoot().getScene().getWindow());
 
         if (file != null) {
-            EditorController controller = newFile();
-            controller.setFile(file);
+            AgendaTab tab = new AgendaTab();
+            tab.getController().open(file);
+
         }
     }
 
     @FXML
     void onPasteAction(ActionEvent event) {
-        controllers.get(selectedTab.get()).paste();
+        getSelectedEditor().paste();
 
     }
 
     @FXML
     void onRedoAction(ActionEvent event) {
-        controllers.get(selectedTab.get()).redo();
+       getSelectedEditor().redo();
 
     }
 
     @FXML
     void onSaveAction(ActionEvent event) {
+        if (getSelectedEditor().getFile() != null)
+            getSelectedEditor().save();
+        else
+            onSaveAsAction(event);
 
+    }
+
+
+    @FXML
+    void onSaveAsAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Todos los archivos (*.*)", "*.*"));
+        File file = fileChooser.showSaveDialog(getRoot().getScene().getWindow());
+
+        if (file != null) {
+            getSelectedEditor().setFile(file);
+            getSelectedEditor().save();
+        }
     }
 
     @FXML
     void onUndoAction(ActionEvent event) {
-        controllers.get(selectedTab.get()).undo();
-
+        getSelectedEditor().undo();
     }
 
     public TabPane getEditTabPane() {
@@ -153,7 +152,7 @@ public class RootController implements Initializable {
         // Cierra las pestañas default de inicio
         editTabPane.getTabs().clear();
 
-        newFile();
+        newTab();
 
         selectedTab.bind(editTabPane.getSelectionModel().selectedItemProperty());
         
